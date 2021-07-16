@@ -1,0 +1,54 @@
+<div class="restaurant-table">
+
+
+  <mat-table [dataSource]="restaurants"   aria-label="Elements" class="  mat-elevation-z8 mainList" >
+
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef  > Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- Address Column -->
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef   > Address </th>
+      <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+    </ng-container>
+
+    <!-- Rating Column -->
+    <ng-container matColumnDef="rating">
+      <th mat-header-cell *matHeaderCellDef  > Rating </th>
+      <td mat-cell *matCellDef="let element"> {{element.rating}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+      mat-row
+      (click)="onRestaurantClick(row.name)"
+      routerLink="/menu/{{row.name}}"
+      [class.demo-row-is-clicked]="clickedRows.has(row)"
+      *matRowDef="let row; columns: displayedColumns;"
+  ></tr>
+</mat-table>
+
+
+<!-- <mat-paginator [length]="100"
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25, 100]">
+</mat-paginator> -->
+
+
+
+<ul>
+  <li *ngFor="let clickedRow of clickedRows">
+    Clicked on {{clickedRow}}
+  </li>
+</ul>
+
+</div>
+
