@@ -3,6 +3,8 @@ import { TestService } from '../test.service';
 import { RestaurantComponent } from '../restaurant/restaurant.component';
 import { ActivatedRoute } from '@angular/router';
 import { menu } from '../models/menu';
+import { FormGroup } from '@angular/forms';
+import { SignInData } from '../models/signInData';
 
 
 @Component({
@@ -14,6 +16,7 @@ import { menu } from '../models/menu';
 export class MenuComponent implements OnInit {
   menu: any[] = [];
   displayedColumnsonmenu = ['name', 'description','price','asd',];
+
 
   constructor(
     private route: ActivatedRoute,
@@ -31,11 +34,15 @@ export class MenuComponent implements OnInit {
       });
     }
     orderonclick(id:string){
+
       this.testService.addorderi().subscribe((posts) => {
         this.menu = posts as any[];
         console.log(posts);
       });
-
+      this.addtocartalert();
+    }
+    addtocartalert() {
+      window.alert('The product has been added to basket!');
     }
 
 

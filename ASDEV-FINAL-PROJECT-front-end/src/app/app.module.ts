@@ -8,15 +8,29 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { RestaurantComponent } from './restaurant/restaurant.component';
-
+import { MenuComponent } from './menu/menu.component';
+import { LoginComponent } from './login/login.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
-import { MenuComponent } from './menu/menu.component';
 import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatTabsModule} from '@angular/material/tabs';
+
+
 
 @NgModule({
   declarations: [
@@ -25,7 +39,8 @@ import {MatButtonModule} from '@angular/material/button';
     HomeComponent,
     AboutComponent,
     RestaurantComponent,
-    MenuComponent
+    MenuComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +51,20 @@ import {MatButtonModule} from '@angular/material/button';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatButtonModule
+    MatButtonModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatSlideToggleModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatProgressSpinnerModule,
+    MatInputModule,
+    MatCardModule,
+    MatMenuModule,
+    MatDividerModule,
+    MatTabsModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
