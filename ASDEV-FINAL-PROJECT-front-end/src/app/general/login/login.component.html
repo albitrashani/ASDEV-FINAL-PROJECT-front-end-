@@ -1,0 +1,33 @@
+<div class="login-form-table">
+  <mat-card>
+    <mat-card-content>
+      <mat-tab-group  [selectedIndex]="this.alb">
+        <!-- Signin Form -->
+        <mat-tab label="Log In" >
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" >
+          <h2>Welcome</h2>
+          <mat-form-field class="full-width-input">
+            <input matInput placeholder="username" formControlName="username" required>
+            <mat-error>
+              Please provide a valid username
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="full-width-input">
+            <input matInput type="password" placeholder="Password" formControlName="password" required>
+            <mat-error>
+              Please provide a valid password
+            </mat-error>
+          </mat-form-field>
+          <mat-error *ngIf="incorrectvalues">
+            The username and password didn't match
+          </mat-error>
+          <button mat-raised-button type="submit" color="primary">Login</button>
+        </form>
+      </mat-tab>
+      <mat-tab label="Sign Up" >
+        <app-signup></app-signup>
+      </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+</div>

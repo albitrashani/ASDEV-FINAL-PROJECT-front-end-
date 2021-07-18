@@ -1,0 +1,24 @@
+<nav>
+  <div>
+    <ul>
+      <li><a routerLink="/">Home</a></li>
+      <li><a routerLink="/about">About</a></li>
+      <li><a routerLink="/restaurant">Restaurant</a></li>
+      <li><a routerLink="login" *ngIf="authenticationService.getIsNotAuthenticated()"> Login</a></li>
+      <li><a routerLink="userinfo" *ngIf="authenticationService.getIsAuthenticated()"> User Info</a></li>
+      <li><a routerLink="/adminpanel" *ngIf="authenticationService.isAuthenticatedAsAdmin()"> Admin Panel</a></li>
+      <li><a routerLink="/orders" *ngIf="authenticationService.isAuthenticatedAsAdmin()"> Orders </a></li>
+      <li style="float: right"><a (click)="logout()" *ngIf="authenticationService.getIsAuthenticated()">Logout</a></li>
+      <li style="float: right">
+        <a
+          routerLink="/cart"
+          class="button fancy-button"
+          style="display: inline-flex; align-items: center"
+          *ngIf="authenticationService.getIsAuthenticated()"
+          ><i class="material-icons" style="font-size: 1.5em">shopping_cart</i
+          >Cart</a>
+      </li>
+
+    </ul>
+  </div>
+</nav>

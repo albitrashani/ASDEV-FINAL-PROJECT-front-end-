@@ -1,6 +1,7 @@
 
 <div class="menu-table">
 
+  <h2>Menu of {{restaurantname}}</h2>
   <mat-table [dataSource]="menu"   aria-label="Elements"class="  mat-elevation-z8">
 
 
@@ -29,7 +30,7 @@
 
     <ng-container matColumnDef="asd">
       <th mat-header-cell *matHeaderCellDef  > Add to Cart </th>
-      <td mat-cell *matCellDef="let element"> <button mat-raised-button color="primary" (click)="orderonclick(element._id)">ADD</button></td>
+      <td mat-cell *matCellDef="let element" > <button mat-raised-button color="primary"  (click)="orderonclick(element.name)">ADD</button></td>
     </ng-container>
 
 
@@ -37,7 +38,10 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumnsonmenu"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumnsonmenu;"></tr>
 </mat-table>
-<button mat-raised-button color="warn" routerLink="/restaurant" >Go back to restaurants list</button>
+<div style="padding: 20px;">
+  <button mat-raised-button color="warn" routerLink="/restaurant" >Go back to restaurants list</button>
+</div>
+
 <!-- <mat-paginator [length]="100"
               [pageSize]="10"
               [pageSizeOptions]="[5, 10, 25, 100]">

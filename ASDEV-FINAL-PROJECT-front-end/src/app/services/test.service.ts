@@ -1,51 +1,61 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { SignInData } from './models/signInData';
+import { startingUrl } from 'src/environments/environment';
+import { SignInData } from '../general/models/signInData';
+import { SignInTokenStatus } from '../general/models/signInDataToken';
+import { AuthenticationService } from './authentication.service';
+import { StorageService } from './storage.service';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class TestService {
-  constructor(protected http: HttpClient) {}
+  constructor(
+    private authenticationService:AuthenticationService,
+    protected http: HttpClient) {}
 
   getRestaurants(): Observable<any[]> {
-    return this.http.get<any[]>('http://localhost:3000/public/restaurant/list');
+    return this.http.get<any[]>(`${startingUrl}/public/restaurant/list`);
   }
 
   getRestaurantMenu(name: string) {
     return this.http.get(
-      'http://localhost:3000/public/restaurant/menulist/' + name
+      `${startingUrl}/public/restaurant/menulist/` + name
     );
   }
 
   signin(data: SignInData): Observable<Object> {
     //console.log(data.getusername());
-    return this.http.post('http://localhost:3000/auth/login', data).pipe(
+    //console.log(this.authenticationService.getToken());
+    return this.http.post(`${startingUrl}/auth/login`, data).pipe(
       catchError(this.handleError),
       );
   }
 
   createUser(data: SignInData): Observable<Object> {
-      return this.http.post('http://localhost:3000/auth/create-user', data).pipe(
+      return this.http.post(`${startingUrl}/auth/create-user`, data).pipe(
       catchError(this.handleError),
       );
   }
 
-  addorderi() {
+  addorderi(menuname:string) {
+
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${'d625fd0d-2cc0-4324-a33e-be7b69b616a1'}`,
+      Authorization: `Bearer ${this.authenticationService.getToken()}`,
     });
 
+    //const params = new HttpParams({fromString: 'name=foo'});
     // return this.http.post('http://localhost:3000/private/order/order/new', {}, {headers: new HttpHeaders({'test': 'true'})});
     const mess = this.http.post(
-      'http://localhost:3000/private/order/order/new',
+      `${startingUrl}/private/order/order/new`,
       {
-        username: 'atrashani',
+        username: this.authenticationService.getUser(),
         items: [
           {
-            name: 'Pizza 2',
+            name: menuname,
             qty: '1',
           },
         ],
@@ -54,7 +64,7 @@ export class TestService {
       {
         headers: headers,
       }
-    );
+    ).pipe(catchError(this.handleError));
     return mess;
   }
 
@@ -73,4 +83,5 @@ export class TestService {
     return throwError(
       'Something bad happened; please try again later.');
   }
+
 }
