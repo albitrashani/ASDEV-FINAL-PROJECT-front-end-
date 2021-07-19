@@ -10,6 +10,13 @@ import { AboutComponent } from './general/about/about.component';
 import { RestaurantComponent } from './general/restaurant/restaurant.component';
 import { MenuComponent } from './general/menu/menu.component';
 import { LoginComponent } from './general/login/login.component';
+import { SignupComponent } from './general/signup/signup.component';
+import { MyHttpInterceptor } from './my-http.interceptor';
+import { OrdersComponent } from './admin/orders/orders.component';
+import { AdminpanelComponent } from './admin/adminpanel/adminpanel.component';
+import { CartComponent } from './user/cart/cart.component';
+import { UserinfoComponent } from './user/userinfo/userinfo.component';
+
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
@@ -29,12 +36,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {MatTabsModule} from '@angular/material/tabs';
-import { SignupComponent } from './general/signup/signup.component';
-import { MyHttpInterceptor } from './my-http.interceptor';
-import { OrdersComponent } from './admin/orders/orders.component';
-import { AdminpanelComponent } from './admin/adminpanel/adminpanel.component';
-import { CartComponent } from './user/cart/cart.component';
-import { UserinfoComponent } from './user/userinfo/userinfo.component';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 
 
@@ -74,7 +76,8 @@ import { UserinfoComponent } from './user/userinfo/userinfo.component';
     MatCardModule,
     MatMenuModule,
     MatDividerModule,
-    MatTabsModule
+    MatTabsModule,
+    MatGridListModule
 
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: MyHttpInterceptor, multi: true }],

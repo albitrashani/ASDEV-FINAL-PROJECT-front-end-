@@ -13,6 +13,7 @@ export class MyHttpInterceptor implements HttpInterceptor {
 
   constructor(private authenticationService:AuthenticationService) {}
 
+  //Let have it in our project:D
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
     const authToken = this.authenticationService.getToken();

@@ -17,14 +17,16 @@ export class TestService {
     private authenticationService:AuthenticationService,
     protected http: HttpClient) {}
 
+    headeri = new HttpHeaders({
+      Authorization: `Bearer ${this.authenticationService.getToken()}`,
+    });
+
   getRestaurants(): Observable<any[]> {
     return this.http.get<any[]>(`${startingUrl}/public/restaurant/list`);
   }
 
   getRestaurantMenu(name: string) {
-    return this.http.get(
-      `${startingUrl}/public/restaurant/menulist/` + name
-    );
+    return this.http.get(`${startingUrl}/public/restaurant/menulist/` + name);
   }
 
   signin(data: SignInData): Observable<Object> {
@@ -41,7 +43,25 @@ export class TestService {
       );
   }
 
-  addorderi(menuname:string) {
+  getUser(): Observable<any[]> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.authenticationService.getToken()}`,
+    });
+    return this.http.get<any[]>(`${startingUrl}/private/user/` +this.authenticationService.getUser(),{headers: headers})
+    .pipe(catchError(this.handleError));
+  }
+
+  getOrderFromUser(): Observable<any[]> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.authenticationService.getToken()}`,
+    });
+    console.log(`${startingUrl}/private/user/` +this.authenticationService.getUser());
+    return this.http.get<any[]>(`${startingUrl}/private/order/order/` +this.authenticationService.getUser(),{headers: headers})
+    .pipe(catchError(this.handleError));
+  }
+
+  //Add order to database
+  addorderi(items:any,total:any) {
 
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.authenticationService.getToken()}`,
@@ -53,10 +73,38 @@ export class TestService {
       `${startingUrl}/private/order/order/new`,
       {
         username: this.authenticationService.getUser(),
+        items: items,
+        status: 'processing',
+        amount: total,
+      },
+      {
+        headers: headers,
+      }
+    ).pipe(catchError(this.handleError));
+    return mess;
+  }
+
+  //delete cart of costumer after submiting order
+  deleteCart(){
+
+    return this.http.delete(`${startingUrl}/private/cart/delete/`+this.authenticationService.getUser(),
+      {
+        headers: this.headeri,
+      }
+    ).pipe(catchError(this.handleError));
+  }
+
+  //Add order to user cart
+  addtoCart(item:any) {
+    const headers = new HttpHeaders({Authorization: `Bearer ${this.authenticationService.getToken()}`});
+    const mess = this.http.post(`${startingUrl}/private/cart/cart/new`,
+      {
+        username: this.authenticationService.getUser(),
         items: [
           {
-            name: menuname,
+            name: item.name,
             qty: '1',
+            price: item.price,
           },
         ],
         status: 'processing',
@@ -68,6 +116,24 @@ export class TestService {
     return mess;
   }
 
+  //get Cart for user
+  getCart() {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.authenticationService.getToken()}`,
+    });
+
+    return this.http.get(`${startingUrl}/private/cart/cart/`+this.authenticationService.getUser(),
+      {
+        headers: headers,
+      }
+    ).pipe(catchError(this.handleError));
+
+  }
+
+
+
+
+  //Error handler from angular
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.

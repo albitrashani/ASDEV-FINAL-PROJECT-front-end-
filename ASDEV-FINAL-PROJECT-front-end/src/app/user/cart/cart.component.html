@@ -1,1 +1,48 @@
-<p>cart works!</p>
+
+<div class="cart-table" >
+<div *ngIf="noitems; else elseBlock">
+  <h2>Cart of {{us}}</h2>
+  <mat-table [dataSource]="dataSource" matSort  aria-label="Elements"class="  mat-elevation-z8">
+
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header > Item </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      <td mat-footer-cell *matFooterCellDef> Total </td>
+    </ng-container>
+
+    <!-- Description Column -->
+    <ng-container matColumnDef="qty">
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header > QNT </th>
+      <td mat-cell *matCellDef="let element"> {{element.qty}} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header > Cost </th>
+      <td mat-cell *matCellDef="let element"> {{element.price | currency}} </td>
+      <td mat-footer-cell *matFooterCellDef> {{cartTotal | currency}} </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumnsonmenu"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumnsonmenu;"></tr>
+    <tr mat-footer-row *matFooterRowDef="displayedColumnsonmenu"></tr>
+</mat-table>
+<mat-paginator  [length]="resultsLength"
+[pageSize]="3"
+[pageSizeOptions]="[3, 5,10]">
+</mat-paginator>
+<div style="padding: 20px;">
+  <button mat-raised-button color="warn" routerLink="/restaurant" >ADD another item</button>
+  <button mat-raised-button color="green" (click)="submitorder(cart, cartTotal)" >Submit Order</button>
+</div>
+</div>
+ <ng-template #elseBlock><h2>No Items on cart!</h2>.</ng-template>
+</div>
+

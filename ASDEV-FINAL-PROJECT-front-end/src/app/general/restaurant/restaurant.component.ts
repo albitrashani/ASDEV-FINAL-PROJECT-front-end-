@@ -1,5 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component,  OnInit, Output, ViewChild } from '@angular/core';
+import { Component,  OnInit, ViewChild  } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { TestService } from '../../services/test.service';
 
 
@@ -18,27 +20,37 @@ export interface RestauranElement {
 
 export class RestaurantComponent implements OnInit {
 
+
+
   restaurants!: any[];
   menu!: any[];
   getMenu!:any[];
   displayedColumns = ['name', 'address','rating'];
   clickedRows = new Set<RestauranElement>();
-
+  resultsLength = 0;
   menuja='Albi';
+  dataSource1!: MatTableDataSource<any>;
   constructor(
     protected testService: TestService
-  ) {
+  ) {}
+
+  @ViewChild(MatPaginator) paginator1!: MatPaginator
+
+  async ngOnInit(): Promise<void> {
+    this.restaurants=(await this.testService.getRestaurants().toPromise()) as any;
+      this.resultsLength=this.restaurants.length,
+
+      //console.log(this.restaurants),
+      this.dataSource1 = new MatTableDataSource<any>(this.restaurants);
+      //console.log(this.dataSource1)
+      this.dataSource1.paginator = this.paginator1;
+
+
 
   }
 
-  ngOnInit(): void {
-    this.testService.getRestaurants().subscribe(
-      //posts => console.log(posts),
-      (posts) => (this.restaurants = posts as any[])
-    );
 
 
-  }
   onRestaurantClick(name: string){
     this.testService.getRestaurantMenu(name).subscribe(
       posts => {this.menu=posts as any[];

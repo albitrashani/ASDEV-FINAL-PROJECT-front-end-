@@ -13,7 +13,7 @@ export class BestGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      console.log(this.authenticationService.isAuthenticated);
+      //console.log(this.authenticationService.isAuthenticated);
       if (this.authenticationService.getIsAuthenticated()) {
         return true;
       }else{
