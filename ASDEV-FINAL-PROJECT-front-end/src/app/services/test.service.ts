@@ -60,6 +60,17 @@ export class TestService {
     .pipe(catchError(this.handleError));
   }
 
+  getAllOrders(): Observable<any[]> {
+    return this.http.get<any[]>(`${startingUrl}/private/order/order/list`,{headers: this.headeri})
+    .pipe(catchError(this.handleError));
+  }
+
+  updateStatus(id:any): Observable<any>{
+    return this.http.put(`${startingUrl}/private/order/order/`+id,{headers: this.headeri}).pipe(
+      catchError(this.handleError));
+
+  }
+
   //Add order to database
   addorderi(items:any,total:any) {
 

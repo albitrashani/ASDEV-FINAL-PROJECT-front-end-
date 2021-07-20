@@ -73,7 +73,7 @@ export class AuthenticationService {
     const a=this.getStatus();
     if(a=='admin'){
 
-      console.log("adminiiiiii")
+      //console.log("adminiiiiii")
       return true;
     }
 
