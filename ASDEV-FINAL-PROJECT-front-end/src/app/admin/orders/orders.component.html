@@ -1,1 +1,63 @@
-<p>orders works!</p>
+
+<div class="order-table">
+  <div >
+  <h2>All orders</h2>
+  <mat-table [dataSource]="dataSource"  matSort aria-label="Elements"class="  mat-elevation-z8">
+
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+
+    <!-- Username Column -->
+    <ng-container matColumnDef="user" >
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header > User </th>
+      <td mat-cell *matCellDef="let element"> {{element.user}} </td>
+    </ng-container>
+
+    <!-- Nr of Items Column -->
+    <ng-container matColumnDef="items" style="text-align:center" layout-align="center center">
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header > Items </th>
+      <td mat-cell *matCellDef="let element"> {{element.items.length}} </td>
+    </ng-container>
+
+    <!-- Total amount Column -->
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header > Total Amount </th>
+      <td mat-cell *matCellDef="let element" > {{element.totalamount | currency}} </td>
+    </ng-container>
+
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header> Status </th>
+      <td mat-cell *matCellDef="let element" > {{element.status}} </td>
+    </ng-container>
+
+    <!-- Change to delivered-->
+    <ng-container matColumnDef="asd" >
+      <th mat-header-cell *matHeaderCellDef   > Change Status </th>
+      <td mat-cell *matCellDef="let element" >
+        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon"(click)="updatestatus(element._id)">
+          <mat-icon>done_outline</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumnsonmenu"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumnsonmenu;"></tr>
+</mat-table>
+</div>
+<mat-paginator  [length]="resultsLength"
+              [pageSize]="5"
+              [pageSizeOptions]="[3, 5,10]">
+</mat-paginator>
+
+
+
+
+
+
+</div>
+
