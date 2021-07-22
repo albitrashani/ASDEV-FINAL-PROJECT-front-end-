@@ -39,7 +39,8 @@ export class CartComponent implements OnInit {
 
   cart!: any[];
   cart1!: any[];
-  displayedColumnsonmenu=['name','qty','price'];
+
+  displayedColumnsonmenu=['name','qty','price','asd'];
   us: string = '';
   cartTotal: number=0;
   noitems:boolean=false;
@@ -78,4 +79,10 @@ export class CartComponent implements OnInit {
     window.alert("Order is made!");
   }
 
+  deleteItem(name:string){
+    console.log(name);
+    this.testService.deleteCartIem(name).subscribe();
+    window.alert('Items deleted');
+    window.location.reload();
+  }
 }

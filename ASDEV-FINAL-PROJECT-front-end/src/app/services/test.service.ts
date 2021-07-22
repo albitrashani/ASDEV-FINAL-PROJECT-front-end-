@@ -105,6 +105,17 @@ export class TestService {
     ).pipe(catchError(this.handleError));
   }
 
+  //delete item from cart
+  deleteCartIem(itemi:string){
+     return this.http.put(`${startingUrl}/private/cart/deleteitem/`+this.authenticationService.getUser(),
+    {
+      item:itemi,
+    },
+     {
+      headers: this.headeri,
+    }).pipe(catchError(this.handleError));
+  }
+
   //Add order to user cart
   addtoCart(item:any) {
     const headers = new HttpHeaders({Authorization: `Bearer ${this.authenticationService.getToken()}`});
